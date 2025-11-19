@@ -34,8 +34,7 @@ const handleClick = () => {
 };
 
   return (
-    <div className="App">
-      <h2>Mini UI Builder</h2>
+    <div className="app">
       <BlockPalette onAddBlock={handleAddBlock} />
       <div className="canvas">
         {blocks.map((block) => (
