@@ -5,6 +5,8 @@
 
 Un proiect React simplu și modular pentru construirea de interfețe vizuale prin blocuri predefinite. Ideal pentru copii, educatori sau oricine învață programare vizuală.
 
+<img src="src/assets/diagram.png" alt="Alt text" width="400" align="right" />
+
 ---
 
 ## 📁 Structura fișierelor
