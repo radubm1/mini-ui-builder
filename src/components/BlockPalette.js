@@ -1,3 +1,4 @@
+// BlockPalette.js
 import React from 'react';
 import kitten from '../assets/kitten.jpg';
 
@@ -8,13 +9,14 @@ const blocks = [
   { type: 'button', label: 'Buton', content: 'Apasă-mă!' }
 ];
 
-export default function BlockPalette({ onAdd }) {
-  return (
-    <div className="palette">
-      <h3>Alege un bloc</h3>
-      {blocks.map((block, i) => (
-        <button key={i} onClick={() => onAdd(block)}>{block.label}</button>
-      ))}
-    </div>
-  );
-}
+const BlockPalette = ({ onAddBlock }) => (
+  <div className="block-palette">
+    {blocks.map((block, index) => (
+      <button key={index} onClick={() => onAddBlock(block)}>
+        {block.label}
+      </button>
+    ))}
+  </div>
+);
+
+export default BlockPalette;
