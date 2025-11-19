@@ -10,6 +10,16 @@ function App() {
   const handleAddBlock = (block) => {
     setBlocks([...blocks, { ...block, id: uuidv4() }]);
   };
+  
+  const handleButtonClick = () => {
+  setBlocks((prevBlocks) =>
+    prevBlocks.map((block) =>
+      block.type === 'image'
+        ? { ...block, content: 'https://picsum.photos/200/150?random=' + Math.floor(Math.random() * 1000) }
+        : block
+    )
+  );
+};
 
   const handleRemoveBlock = (id) => {
     setBlocks(blocks.filter(b => b.id !== id));
@@ -19,7 +29,7 @@ function App() {
     <div className="App">
       <h2>Mini UI Builder</h2>
       <BlockPalette onAdd={handleAddBlock} />
-      <Canvas blocks={blocks} onRemove={handleRemoveBlock} />
+      <Canvas blocks={blocks} onRemove={handleRemoveBlock} onButtonClick={handleButtonClick} />
     </div>
   );
 }
