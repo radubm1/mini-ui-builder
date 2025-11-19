@@ -1,13 +1,13 @@
 import React from 'react';
-import Block from './Block';
 
-export default function Canvas({ blocks, onRemove }) {
+export default function Block({ block, onRemove }) {
   return (
-    <div className="canvas">
-      <h3>Pagina ta</h3>
-		{Array.isArray(blocks) && blocks.map((block) => (
-		  <Block key={block.id} block={block} onRemove={() => onRemove(block.id)} />
-		))}
+    <div className="block">
+      {block.type === 'title' && <h1>{block.content}</h1>}
+      {block.type === 'image' && <img src={block.content} alt="bloc vizual" />}
+      {block.type === 'text' && <p>{block.content}</p>}
+      {block.type === 'button' && <button>{block.content}</button>}
+      <button className="remove" onClick={onRemove}>❌</button>
     </div>
   );
 }
