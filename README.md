@@ -1,70 +1,142 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# 🧰 Mini UI Builder – Manual de utilizare
 
-In the project directory, you can run:
+Un proiect React simplu și modular pentru construirea de interfețe vizuale prin blocuri predefinite. Ideal pentru copii, educatori sau oricine învață programare vizuală.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📁 Structura fișierelor
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+src/
+├── components/
+│   ├── BlockPalette.js   # Selectorul de blocuri
+│   ├── Canvas.js         # Zona de construcție
+│   └── Block.js          # Bloc individual
+├── App.js                # Logica principală
+├── App.css               # Stilizare generală
+```
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🧱 BlockPalette.js – Blocuri predefinite
 
-### `npm run build`
+Componentă care oferă utilizatorului o paletă de blocuri ce pot fi adăugate în canvas.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+const blocks = [
+  { type: 'title', label: 'Titlu Mare', content: 'Bine ai venit!' },
+  { type: 'image', label: 'Imagine', content: 'https://placekitten.com/200/150' },
+  { type: 'text', label: 'Text', content: 'Acesta este un text simplu.' },
+  { type: 'button', label: 'Buton', content: 'Apasă-mă!' }
+];
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🔘 Fiecare buton din paletă adaugă un bloc în canvas prin `onAdd`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🖼️ Canvas.js – Zona de construcție
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Componentă care afișează blocurile adăugate de utilizator.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```js
+<Canvas blocks={blocks} onRemove={handleRemoveBlock} />
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+🧹 Fiecare bloc poate fi eliminat individual printr-un buton ❌.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## 🧩 Block.js – Bloc individual
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Componentă care redă un bloc în funcție de tipul său (`title`, `image`, `text`, `button`).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```js
+{block.type === 'title' && <h1>{block.content}</h1>}
+{block.type === 'image' && <img src={block.content} alt="bloc vizual" />}
+{block.type === 'text' && <p>{block.content}</p>}
+{block.type === 'button' && <button>{block.content}</button>}
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🧠 App.js – Logica principală
 
-### Analyzing the Bundle Size
+- Gestionează starea aplicației (`blocks`)
+- Adaugă blocuri cu ID unic (`uuidv4`)
+- Elimină blocuri după ID
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```js
+const handleAddBlock = (block) => {
+  setBlocks([...blocks, { ...block, id: uuidv4() }]);
+};
+```
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎨 App.css – Stilizare
 
-### Advanced Configuration
+```css
+.App {
+  font-family: 'Comic Neue', sans-serif;
+  background: #fef6e4;
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+.palette button {
+  background: #ffb703;
+  border-radius: 8px;
+}
 
-### Deployment
+.canvas {
+  border: 2px dashed #8ecae6;
+  background: #ffffff;
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+.block img {
+  max-width: 100%;
+  border-radius: 8px;
+}
 
-### `npm run build` fails to minify
+.remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #e63946;
+  color: white;
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 🚀 Cum rulezi aplicația
+
+1. Clonează proiectul:
+   ```bash
+   git clone <repo-url>
+   cd mini-ui-builder
+   ```
+
+2. Instalează dependențele:
+   ```bash
+   npm install
+   ```
+
+3. Rulează aplicația:
+   ```bash
+   npm start
+   ```
+
+---
+
+## 🛠️ Idei de extindere
+
+- ✏️ Editare conținut în blocuri (ex: dublu-click pentru modificare)
+- 🧲 Drag-and-drop pentru reordonare
+- 💾 Salvare automată în `localStorage`
+- 🎨 Personalizare stil per bloc (culori, fonturi)
+
+---
+
