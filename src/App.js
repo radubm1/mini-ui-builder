@@ -7,9 +7,13 @@ import './App.css';
 function App() {
   const [blocks, setBlocks] = useState([]);
 
-  const handleAddBlock = (block) => {
-    setBlocks([...blocks, { ...block, id: uuidv4() }]);
-  };
+	const handleAddBlock = (block) => {
+	  const newBlock = {
+		...block,
+		id: Date.now() + Math.random() // ID unic
+	  };
+	  setBlocks([...blocks, newBlock]);
+	};
   
   const handleButtonClick = () => {
   setBlocks((prevBlocks) =>
