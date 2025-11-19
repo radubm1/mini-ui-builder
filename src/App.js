@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import BlockPalette from './components/BlockPalette';
+import Canvas from './components/Canvas';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
 function App() {
+  const [blocks, setBlocks] = useState([]);
+
+  const handleAddBlock = (block) => {
+    setBlocks([...blocks, { ...block, id: uuidv4() }]);
+  };
+
+  const handleRemoveBlock = (id) => {
+    setBlocks(blocks.filter(b => b.id !== id));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>Mini UI Builder</h2>
+      <BlockPalette onAdd={handleAddBlock} />
+      <Canvas blocks={blocks} onRemove={handleRemoveBlock} />
     </div>
   );
 }
